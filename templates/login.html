@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container my-5">
+    <form action="{% url 'login_page' %}" method="post" class="col-6 mx-auto p-3 card shadow-lg"
+        style="border-radius: 10px;">
+        <h1 class="text-center text-primary ">Login</h1>
+        {% csrf_token %}
+        {% if messages %}
+        <div class="alert alert-info" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary rounded-pill mt-3">Login</button>
+        <br>
+        <h6>Forgot your password? <a href="{% url 'password_reset' %}">Reset it here</a></h6>
+        <br>
+        <h6>Don't have an account? <a href="{% url 'signup' %}">Register now</a></h6>
+
+    </form>
+
+</div>
+
+
+
+{% endblock %}

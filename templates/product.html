@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="mx-auto text-center mb-5" style="max-width: 500px;">
+            <h6 class="text-primary text-uppercase">Products</h6>
+            <h1 class="display-5">Our Fresh & Organic Products</h1>
+            <h6 class="text-center"><a href="{% url 'product'  %}">All</a> | <a
+                    href="{% url 'category_products' 'fruits' %}">Fruits</a> | <a
+                    href="{% url 'category_products' 'vegetables' %}">Vegetables</a></h6>
+        </div>
+
+        <div class="row ">
+            {% for i in products %}
+            <div class="col-3 mb-3">
+                <div class="card" style="width: 15rem; ">
+                    <img src="{{i.image.url}}" width="200px" height="200px" class="card-img-top" alt="{{i.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.name }}</h5>
+                        <p class="card-text text-dark fw-bold">Price:₹{{i.price}} <span
+                                class="text-muted"><strike>₹{{i.dprice}}</strike></span> </p>
+                        <a href="{% url 'update_cart' i.id %}" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+            {% if category %}
+
+            {% for i in category_products %}
+            <div class="col-3 mb-3">
+                <div class="card" style="width: 15rem; ">
+                    <img src="{{i.image.url}}" width="200px" height="200px" class="card-img-top" alt="{{i.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.name }} <span>{{i.quantity}}kg</span></h5>
+                        <p class="card-text text-dark fw-bold">Price:₹{{i.price}} <span
+                                class="text-muted"><strike>₹{{i.dprice}}</strike></span> </p>
+
+                        <a href="{% url 'update_cart' i.id %}" class="btn btn-primary">Add to cart</a>
+                    </div>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}

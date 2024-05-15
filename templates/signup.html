@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container my-5">
+    <form action="{% url 'signup' %}" method="post" class="col-6 mx-auto p-3 card shadow-lg"
+        style="border-radius: 10px;">
+        {% csrf_token %}
+        <h1 class="text-center text-primary ">Signup</h1>
+        {% if messages %}
+        <div class="alert alert-info" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" name="email" class="form-control" required id="exampleInputEmail1"
+                aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required onkeyup='check()' id="password">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="checkPassword" required onkeyup='check()'>
+        </div>
+        <div class="mb-3">
+            <p class="ap" id="alertPassword"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary rounded-pill">Signup</button>
+        <br>
+        <h6>Already have an account? <a href="{% url 'login_page' %}">Login now</a></h6>
+
+    </form>
+
+</div>
+
+
+<script>
+    var check = function () {
+        var password = document.getElementById('password').value;
+        var checkPassword = document.getElementById('checkPassword').value;
+        var alertPassword = document.getElementById('alertPassword');
+
+        if (checkPassword !== '') {
+            if (password === '' && checkPassword === '') {
+                // Both inputs are empty
+                alertPassword.style.color = '#EE2B39';
+                alertPassword.innerHTML = '<span><i class="fas fa-exclamation-triangle"></i>Passwords cannot be empty</span>';
+            } else if (password === checkPassword) {
+                // Passwords match
+                alertPassword.style.color = '#8CC63E';
+                alertPassword.innerHTML = '<span><i class="fas fa-check-circle"></i> Match !</span>';
+            } else {
+                // Passwords do not match
+                alertPassword.style.color = '#EE2B39';
+                alertPassword.innerHTML = '<span><i class="fas fa-exclamation-triangle"></i> Not matching</span>';
+            }
+        } else {
+            // Reset the alert message if checkPassword is empty
+            alertPassword.innerHTML = '';
+        }
+    }
+
+
+
+</script>
+
+
+{% endblock %}

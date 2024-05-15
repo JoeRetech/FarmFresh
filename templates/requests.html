@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>From</th>
+                <th>Request</th>
+                <th>Reply</th>
+            </tr>
+            {% for i in requests %}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.address}}</td>
+                <td>{{i.reqmsg}}</td>
+                <td><a href="{% url 'send_email' %}" class="btn btn-primary">Reply</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+</div>
+
+{% endblock %}
